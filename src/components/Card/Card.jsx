@@ -12,10 +12,6 @@ const Card = (props) => {
   // const appDispatch = useContext(DispatchContext)
 
   const [state, setState] = useImmer({
-    edit: {
-      isEditing: false,
-      editingWhat: '',
-    },
     currencies: [],
     amount: 0,
   })

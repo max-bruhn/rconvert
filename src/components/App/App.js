@@ -65,10 +65,8 @@ function App() {
     if (localStorage.getItem('addedCurrencies') && localStorage.getItem('addedCurrencies').split(',').length) {
       let value = JSON.parse(localStorage.getItem('addedCurrencies'))
 
-      dispatch({ type: 'setCurrFromLocal', value })
+      return dispatch({ type: 'setCurrFromLocal', value })
     }
-
-    return
   }, [])
 
   // updates localStorage
@@ -139,10 +137,14 @@ function App() {
 
   return (
     <>
-      <div className="container mx-auto px-1">
-        <Header />
-        <Content />
-      </div>
+      <StateContext.Provider value={state}>
+        <DispatchContext.Provider value={dispatch}>
+          <div className="container mx-auto px-1">
+            <Header />
+            <Content />
+          </div>
+        </DispatchContext.Provider>
+      </StateContext.Provider>
     </>
   )
 }
