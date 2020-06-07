@@ -1,6 +1,23 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
+import StateContext from '../../StateContext'
+import data from '../../data/data.json'
+import { useImmer } from 'use-immer'
+
+import Card from '../Card/Card'
 
 const Content = () => {
+  const appState = useContext(StateContext)
+
+  const [state, setState] = useImmer({
+    tempCurr: [],
+  })
+
+  useEffect(() => {
+    setState((draft) => {
+      draft.tempCurr = [...data]
+    })
+  }, [])
+
   return (
     <>
       <div className="container bg-gray-900 min-h-screen px-8">
@@ -17,8 +34,11 @@ const Content = () => {
             <span className="text-base inline-block">CURRENCIES</span> <br />
             <span className="text-sm pt-3 pr-5 inline-block">Drag a currency to the top to make it the base currency.</span>
           </div>
-
-          <div class="w-full sm:w-2/3  bg-gray-400 my-8">Test</div>
+          <div class="w-full sm:w-2/3   my-8">
+            {state.tempCurr.map((curr, id) => {
+              return <Card key={curr.value} currency={curr} id={id} />
+            })}
+          </div>
         </div>
       </div>
     </>

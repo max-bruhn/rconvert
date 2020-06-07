@@ -1,0 +1,52 @@
+[
+  {
+    "value": "AUS",
+    "label": "Australian Dollar",
+    "country": "Australia"
+  },
+  {
+    "value": "BGN",
+    "label": "Bulgarian Lev",
+    "country": "Bulgaria"
+  },
+  {
+    "value": "BRL",
+    "label": "Brazilian Real",
+    "country": "Brazil"
+  },
+  {
+    "value": "CAD",
+    "label": "Canadian Dollar",
+    "country": "Canada"
+  },
+  {
+    "value": "CHF",
+    "label": "Swiss Franc",
+    "country": "Switzerland"
+  },
+  {
+    "value": "CNY",
+    "label": "Chinese Yuan Renminbi",
+    "country": "Peoples Republic of China"
+  },
+  {
+    "value": "DKK",
+    "label": "Danish Krone",
+    "country": "Denmark"
+  },
+  {
+    "value": "GBP",
+    "label": "Pound Sterlin",
+    "country": "United Kingdom"
+  },
+  {
+    "value": "USD",
+    "label": "US Dollar",
+    "country": "United States of America"
+  },
+  {
+    "value": "EUR",
+    "label": "Euro",
+    "country": "EU Zone"
+  }
+]
