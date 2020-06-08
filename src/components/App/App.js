@@ -139,7 +139,7 @@ function App() {
     <>
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
-          <div className="container mx-auto px-1">
+          <div className="container  mx-auto lg:px-4 xl:px-32">
             <Header />
             <Content />
           </div>
