@@ -65,6 +65,25 @@ const Search = () => {
     })
   }
 
+  function clickHandler() {
+    let isUnique = true
+
+    state.addedCurrencies ||
+      [].forEach((curr) => {
+        if (curr.value === state.filteredOptions[state.dropdown.selected].value) {
+          isUnique = false
+        }
+      })
+
+    if (isUnique) {
+      appDispatch({ type: 'addCurrency', value: state.filteredOptions[state.dropdown.selected].value })
+      setState((draft) => {
+        draft.display = false
+        draft.dropdown.selected = 0
+      })
+    }
+  }
+
   function keyUpHandler(e) {
     // hide dropdown & clear selected
     if (e.key === 'Escape') {
@@ -111,6 +130,9 @@ const Search = () => {
       <li
         onMouseEnter={() => {
           hoverHandler(item.id)
+        }}
+        onClick={() => {
+          clickHandler(item.id)
         }}
         className={`w-full leading-loose px-3 h-8 border-gray-800 border  cursor-pointer ${state.dropdown.selected === item.id ? ' bg-gray-700 ' : ''}`}
       >
