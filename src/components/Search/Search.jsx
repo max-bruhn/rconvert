@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useRef } from 'react'
 import { useImmer } from 'use-immer'
 import DispatchContext from '../../DispatchContext'
 import StateContext from '../../StateContext'
@@ -38,6 +38,32 @@ const Search = () => {
     })
     return
   }, [appState.addedCurrencies])
+
+  // ref to search div
+  const searchDiv = useRef()
+
+  // add event listener to watch for any clicks
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener('mousedown', handleClickOutside)
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  //
+  function handleClickOutside(e) {
+    if (searchDiv.current.contains(e.target)) {
+      // inside click
+      return
+    }
+    // outside click
+    setState((draft) => {
+      draft.display = false
+      draft.dropdown.selected = 0
+    })
+  }
 
   function filterHandler(input) {
     if (input === '') {
@@ -143,7 +169,7 @@ const Search = () => {
 
   return (
     <>
-      <div className={`${styles.dropdown} w-full bg-gray-900 text-gray-600`}>
+      <div ref={searchDiv} className={`${styles.dropdown} w-full bg-gray-900 text-gray-600`}>
         <input
           onFocus={() => {
             setState((draft) => {
@@ -170,7 +196,6 @@ const Search = () => {
         <div className={state.display ? `${styles.block} ${styles['dropdown-content']} border rounded-lg bg-gray-900 border-gray-800 w-full` : `${styles.none}`}>
           <ul className="w-full">
             {state.filteredOptions.map((item, id) => {
-              // console.log(item.label)
               return <SelectItem key={item.value} id={id} item={item} />
             })}
           </ul>
