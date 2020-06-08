@@ -59,6 +59,12 @@ const Search = () => {
     console.log('selected')
   }
 
+  function hoverHandler(id) {
+    setState((draft) => {
+      draft.dropdown.selected = id
+    })
+  }
+
   function keyUpHandler(e) {
     // hide dropdown & clear selected
     if (e.key === 'Escape') {
@@ -88,6 +94,10 @@ const Search = () => {
 
       if (isUnique) {
         appDispatch({ type: 'addCurrency', value: state.filteredOptions[state.dropdown.selected].value })
+        setState((draft) => {
+          draft.display = false
+          draft.dropdown.selected = 0
+        })
       }
     } else if (e.key === 'ArrowDown' && !state.display) {
       setState((draft) => {
@@ -97,7 +107,16 @@ const Search = () => {
   }
 
   function SelectItem(item) {
-    return <li className={`w-full leading-loose px-3 h-8 border-gray-800 border  cursor-pointer ${state.dropdown.selected === item.id ? ' bg-gray-700 ' : ''}`}>{item.item.label}</li>
+    return (
+      <li
+        onMouseEnter={() => {
+          hoverHandler(item.id)
+        }}
+        className={`w-full leading-loose px-3 h-8 border-gray-800 border  cursor-pointer ${state.dropdown.selected === item.id ? ' bg-gray-700 ' : ''}`}
+      >
+        {item.item.label}
+      </li>
+    )
   }
 
   return (
@@ -116,6 +135,10 @@ const Search = () => {
           }}
           onKeyUp={(e) => {
             keyUpHandler(e)
+          }}
+          onChange={(e) => {
+            e.preventDefault()
+            filterHandler(e.target.value)
           }}
           className={`rounded-lg border-gray-600 border text-gray-600 w-full bg-gray-900 py-2 px-3 `}
           type="text"
