@@ -16,6 +16,10 @@ const Search = () => {
     options: [],
     filteredOptions: [],
     search: '',
+    dropdown: {
+      selected: 0,
+      usesArrows: false,
+    },
   })
 
   useEffect(() => {
@@ -51,8 +55,49 @@ const Search = () => {
     })
   }
 
+  function selectHandler() {
+    console.log('selected')
+  }
+
+  function keyUpHandler(e) {
+    // hide dropdown & clear selected
+    if (e.key === 'Escape') {
+      setState((draft) => {
+        draft.display = false
+        draft.dropdown.selected = 0
+      })
+    } else if (e.key === 'ArrowDown' && state.display && state.dropdown.selected < state.filteredOptions.length - 1) {
+      setState((draft) => {
+        draft.dropdown.selected++
+      })
+    } else if (e.key === 'ArrowUp' && state.dropdown.selected > 0) {
+      setState((draft) => {
+        draft.dropdown.selected--
+      })
+    } else if (e.key === 'Enter') {
+      // check if an entry with same value is already part of state.addedCurrencie
+      // if not, than add it
+      let isUnique = true
+
+      state.addedCurrencies ||
+        [].forEach((curr) => {
+          if (curr.value === state.filteredOptions[state.dropdown.selected].value) {
+            isUnique = false
+          }
+        })
+
+      if (isUnique) {
+        appDispatch({ type: 'addCurrency', value: state.filteredOptions[state.dropdown.selected].value })
+      }
+    } else if (e.key === 'ArrowDown' && !state.display) {
+      setState((draft) => {
+        draft.display = true
+      })
+    }
+  }
+
   function SelectItem(item) {
-    return <li className="w-full leading-loose px-3 h-8 border-gray-800 border  hover:bg-gray-700 cursor-pointer">{item.item.label}</li>
+    return <li className={`w-full leading-loose px-3 h-8 border-gray-800 border  cursor-pointer ${state.dropdown.selected === item.id ? ' bg-gray-700 ' : ''}`}>{item.item.label}</li>
   }
 
   return (
@@ -64,10 +109,13 @@ const Search = () => {
               draft.display = true
             })
           }}
-          onBlur={() => {
+          onClick={() => {
             setState((draft) => {
-              draft.display = false
+              draft.display = true
             })
+          }}
+          onKeyUp={(e) => {
+            keyUpHandler(e)
           }}
           className={`rounded-lg border-gray-600 border text-gray-600 w-full bg-gray-900 py-2 px-3 `}
           type="text"
@@ -78,7 +126,7 @@ const Search = () => {
           <ul className="w-full">
             {state.filteredOptions.map((item, id) => {
               // console.log(item.label)
-              return <SelectItem key={item.value} item={item} />
+              return <SelectItem key={item.value} id={id} item={item} />
             })}
           </ul>
         </div>
