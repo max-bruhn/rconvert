@@ -162,7 +162,7 @@ const Search = () => {
         onClick={() => {
           clickHandler(item.id)
         }}
-        className={`w-full leading-loose px-3 h-8 border-gray-800 border  cursor-pointer ${state.dropdown.selected === item.id ? ' bg-gray-700 ' : ''}`}
+        className={`w-full leading-loose px-5  px-3 h-12 py-2 md:py-0 md:h-8 border-gray-800 border  cursor-pointer ${state.dropdown.selected === item.id ? ' bg-gray-700 ' : ''}`}
       >
         {item.item.label}
       </li>
