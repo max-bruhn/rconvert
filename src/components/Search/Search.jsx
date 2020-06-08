@@ -4,8 +4,10 @@ import DispatchContext from '../../DispatchContext'
 import StateContext from '../../StateContext'
 import data from '../../data/data.json'
 import { isEqual } from 'lodash'
+import { CSSTransition } from 'react-transition-group'
 
 import styles from './Search.module.scss'
+import transition from './transition.module.scss'
 
 const Search = () => {
   const appDispatch = useContext(DispatchContext)
@@ -169,7 +171,7 @@ const Search = () => {
 
   return (
     <>
-      <div ref={searchDiv} className={`${styles.dropdown} w-full bg-gray-900 text-gray-600`}>
+      <div ref={searchDiv} className={`${styles.input} w-full bg-gray-900 text-gray-600`}>
         <input
           onFocus={() => {
             setState((draft) => {
@@ -192,14 +194,15 @@ const Search = () => {
           type="text"
           placeholder="Search"
         />
-
-        <div className={state.display ? `${styles.block} ${styles['dropdown-content']} border rounded-lg bg-gray-900 border-gray-800 w-full` : `${styles.none}`}>
-          <ul className="w-full">
-            {state.filteredOptions.map((item, id) => {
-              return <SelectItem key={item.value} id={id} item={item} />
-            })}
-          </ul>
-        </div>
+        <CSSTransition in={state.display} timeout={2000} classNames={transition} unmountOnExit>
+          <div className={`${styles.dropdown} border rounded-lg bg-gray-900 border-gray-800 w-full`}>
+            <ul className="w-full">
+              {state.filteredOptions.map((item, id) => {
+                return <SelectItem key={item.value} id={id} item={item} />
+              })}
+            </ul>
+          </div>
+        </CSSTransition>
       </div>
     </>
   )
