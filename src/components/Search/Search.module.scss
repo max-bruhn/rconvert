@@ -10,3 +10,11 @@
   transform-origin: top;
   z-index: 1;
 }
+
+li:first-child {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+li:last-child {
+  border-radius: 0 0 0.5rem 0.5rem;
+}

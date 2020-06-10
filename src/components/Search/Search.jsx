@@ -196,7 +196,7 @@ const Search = () => {
         />
         <CSSTransition in={state.display} timeout={2000} classNames={transition} unmountOnExit>
           <div className={`${styles.dropdown} border rounded-lg bg-gray-900 border-gray-800 w-full`}>
-            <ul className="w-full">
+            <ul className={`w-full `}>
               {state.filteredOptions.map((item, id) => {
                 return <SelectItem key={item.value} id={id} item={item} />
               })}
