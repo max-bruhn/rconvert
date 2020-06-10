@@ -36,7 +36,7 @@ const Content = () => {
             <span className="text-sm pt-3 pr-5 inline-block">Drag a currency to the top to make it the base currency.</span>
           </div>
           <div className="w-full sm:w-2/3   sm:my-8">
-            {appState.addedCurrencies.map((curr, id) => {
+            {data.map((curr, id) => {
               return <Card key={curr.value} currency={curr} id={id} />
             })}
           </div>

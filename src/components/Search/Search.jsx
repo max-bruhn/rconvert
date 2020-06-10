@@ -26,7 +26,7 @@ const Search = () => {
 
   useEffect(() => {
     let temp = [...data]
-    console.log('added ccc')
+
     if (appState.addedCurrencies && appState.addedCurrencies.length) {
       appState.addedCurrencies.forEach((el) => {
         let index = temp.findIndex((x) => isEqual(x, el))
