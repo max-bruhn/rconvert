@@ -1,13 +1,16 @@
 import React, { useEffect, useContext } from 'react'
 import StateContext from '../../StateContext'
+import DispatchContext from '../../DispatchContext'
 import data from '../../data/data.json'
 import { useImmer } from 'use-immer'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import Card from '../Card/Card'
 import Search from '../Search/Search'
 
 const Content = () => {
   const appState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
 
   const [state, setState] = useImmer({
     tempCurr: [],
@@ -18,6 +21,23 @@ const Content = () => {
       draft.tempCurr = [...data]
     })
   }, [])
+
+  function onDragEnd(result) {
+    const { destination, source, draggableId } = result
+    if (!destination) {
+      return
+    }
+    if (destination.droppableId === source.draggableId && destination.index === source.index) {
+      return
+    }
+
+    const newAddedCurrencies = [...appState.addedCurrencies]
+
+    newAddedCurrencies.splice(source.index, 1)
+    newAddedCurrencies.splice(destination.index, 0, JSON.parse(draggableId))
+
+    appDispatch({ type: 'updateOrder', value: newAddedCurrencies })
+  }
 
   return (
     <>
@@ -36,9 +56,20 @@ const Content = () => {
             <span className="text-sm pt-3 pr-5 inline-block">Drag a currency to the top to make it the base currency.</span>
           </div>
           <div className="w-full sm:w-2/3   sm:my-8">
-            {data.map((curr, id) => {
-              return <Card key={curr.value} currency={curr} id={id} />
-            })}
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId={'droppableId1'}>
+                {(provided) => {
+                  return (
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                      {appState.addedCurrencies.map((curr, id) => {
+                        return <Card key={curr.value} currency={curr} id={id} />
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  )
+                }}
+              </Droppable>
+            </DragDropContext>
           </div>
         </div>
       </div>

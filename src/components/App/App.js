@@ -25,10 +25,14 @@ function App() {
         for (let i = 0; i < data.length; i++) {
           if (data[i].value === action.value) {
             draft.addedCurrencies.push(data[i])
+            console.log(data[i])
             break
           }
         }
 
+        return
+      case 'updateOrder':
+        draft.addedCurrencies = [...action.value]
         return
       case 'removeCurrency':
         console.log('remove curr')

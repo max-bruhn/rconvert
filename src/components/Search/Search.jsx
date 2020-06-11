@@ -169,6 +169,8 @@ const Search = () => {
     )
   }
 
+  const nodeRef = React.createRef()
+
   return (
     <>
       <div ref={searchDiv} className={`${styles.input} w-full bg-gray-900 text-gray-600`}>
@@ -194,8 +196,8 @@ const Search = () => {
           type="text"
           placeholder="Search"
         />
-        <CSSTransition in={state.display} timeout={2000} classNames={transition} unmountOnExit>
-          <div className={`${styles.dropdown} border rounded-lg bg-gray-900 border-gray-800 w-full`}>
+        <CSSTransition nodeRef={nodeRef} in={state.display} timeout={2000} classNames={transition} unmountOnExit>
+          <div ref={nodeRef} className={`${styles.dropdown} border rounded-lg bg-gray-900 border-gray-800 w-full`}>
             <ul className={`w-full `}>
               {state.filteredOptions.map((item, id) => {
                 return <SelectItem key={item.value} id={id} item={item} />
