@@ -31,8 +31,6 @@ const Content = () => {
       return
     }
 
-    // setPlaceholderProps({})
-
     const newAddedCurrencies = [...appState.addedCurrencies]
 
     newAddedCurrencies.splice(source.index, 1)
