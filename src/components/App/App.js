@@ -13,6 +13,7 @@ import data from '../../data/data.json'
 function App() {
   const initialState = {
     addedCurrencies: [],
+    baseCurr: '',
     rates: {},
     lastUpdate: 0,
     timeUntilUpdate: 0,
@@ -37,6 +38,9 @@ function App() {
         return
       case 'updateOrder':
         draft.addedCurrencies = [...action.value]
+        return
+      case 'updateBase':
+        draft.baseCurr = action.value
         return
       case 'removeCurrency':
         console.log('remove curr')
@@ -82,11 +86,28 @@ function App() {
     if (state.addedCurrencies && state.addedCurrencies.length) {
       localStorage.setItem('addedCurrencies', JSON.stringify(state.addedCurrencies))
     }
+
     return
+  }, [state.addedCurrencies])
+
+  useEffect(() => {
+    if (state.addedCurrencies && state.addedCurrencies.length && Date.now() - state.lastUpdate >= state.updateInterval) {
+      getLatestRates(state.addedCurrencies[0].value)
+    }
+  }, [state.addedCurrencies])
+
+  // make api call and update base curr if first item in addedCurr array has been changed
+  useEffect(() => {
+    if (state.addedCurrencies && state.addedCurrencies.length && state.addedCurrencies[0].value !== state.baseCurr) {
+      dispatch({ type: 'updateBase', value: state.addedCurrencies[0].value })
+      getLatestRates(state.addedCurrencies[0].value)
+      return
+    }
   }, [state.addedCurrencies])
 
   // updates rates
   async function getLatestRates(base) {
+    console.log(base)
     // call this function with state.addedCurrencies[0].value
     if (state.addedCurrencies && state.addedCurrencies.length) {
       const ourRequest = Axios.CancelToken.source()
@@ -96,7 +117,7 @@ function App() {
       })
 
       if (response && response.data && response.data.rates) {
-        // console.log(response)
+        console.log(response.data.rates)
         dispatch({
           type: 'updateRates',
           value: response.data.rates,
@@ -136,12 +157,6 @@ function App() {
     }, updateCycle)
     return () => clearInterval(interval)
   }, [state.lastUpdate])
-
-  useEffect(() => {
-    if (state.addedCurrencies && state.addedCurrencies.length && Date.now() - state.lastUpdate >= state.updateInterval) {
-      getLatestRates(state.addedCurrencies[0].value)
-    }
-  }, [state.addedCurrencies])
 
   return (
     <>
