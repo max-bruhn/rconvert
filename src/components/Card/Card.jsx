@@ -9,26 +9,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import styles from './Card.module.scss'
 import transition from './transition.module.scss'
 
-function useTraceUpdate(props) {
-  const prev = useRef(props)
-  useEffect(() => {
-    const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-      if (prev.current[k] !== v) {
-        ps[k] = [prev.current[k], v]
-      }
-      return ps
-    }, {})
-    if (Object.keys(changedProps).length > 0) {
-      console.log('Changed props:', changedProps)
-    }
-    prev.current = props
-  })
-}
-
 const Card = (props) => {
-  useTraceUpdate(props)
-  console.log(props + ' ' + Date.now())
-
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
@@ -71,15 +52,39 @@ const Card = (props) => {
     return
   }, [appState.addedCurrencies])
 
+  // update amount if baseAmount has been changed
+  useEffect(() => {
+    if (props.id == 0) {
+      return
+    }
+
+    const rate = appState.rates[props.currency.value]
+
+    setState((draft) => {
+      draft.amount = parseFloat(appState.baseAmount * rate).toFixed(2)
+    })
+  }, [appState.baseAmount, appState.rates])
+
+  function inputHandler(e) {
+    e.preventDefault()
+
+    if (props.id != 0) {
+      return
+    }
+    let value = e.target.value
+
+    appDispatch({ type: 'updateBaseAmount', value })
+  }
+
   // ref for css transition (otherwise throws warning in strict mode)
   const nodeRef = React.createRef()
 
   function Input() {
-    return <input type="number" className="float-right bg-opacity-25 bg-white rounded-lg text-right align-bottom  font-bold text-xl " />
+    return <input type="number" pattern="[0-9]*" inputMode="numeric" autoFocus onChange={(e) => inputHandler(e)} value={appState.baseAmount} className="float-right bg-opacity-25 bg-white rounded-lg text-right align-bottom  font-bold text-xl " />
   }
 
   function Amount() {
-    return <span className="float-right align-bottom leading-10 font-bold text-xl ">300</span>
+    return <span className="float-right align-bottom leading-10 font-bold text-xl ">{isNaN(state.amount) ? '-' : state.amount}</span>
   }
 
   return (

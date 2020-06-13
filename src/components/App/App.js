@@ -14,6 +14,7 @@ function App() {
   const initialState = {
     addedCurrencies: [],
     baseCurr: '',
+    baseAmount: 1,
     rates: {},
     lastUpdate: 0,
     timeUntilUpdate: 0,
@@ -39,8 +40,11 @@ function App() {
       case 'updateOrder':
         draft.addedCurrencies = [...action.value]
         return
-      case 'updateBase':
+      case 'updateBaseCurr':
         draft.baseCurr = action.value
+        return
+      case 'updateBaseAmount':
+        draft.baseAmount = action.value
         return
       case 'removeCurrency':
         console.log('remove curr')
@@ -52,6 +56,8 @@ function App() {
         localStorage.removeItem('addedCurrencies')
         localStorage.removeItem('searchCurrencies')
         draft.addedCurrencies = []
+        draft.baseCurr = ''
+        draft.baseAmount = 1
         return
       case 'updateRates':
         draft.rates = { ...action.value }
@@ -99,7 +105,7 @@ function App() {
   // make api call and update base curr if first item in addedCurr array has been changed
   useEffect(() => {
     if (state.addedCurrencies && state.addedCurrencies.length && state.addedCurrencies[0].value !== state.baseCurr) {
-      dispatch({ type: 'updateBase', value: state.addedCurrencies[0].value })
+      dispatch({ type: 'updateBaseCurr', value: state.addedCurrencies[0].value })
       getLatestRates(state.addedCurrencies[0].value)
       return
     }
