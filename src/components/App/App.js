@@ -144,19 +144,19 @@ function App() {
   }, [state.lastUpdate])
 
   // set percentage for loading icon
-  useEffect(() => {
-    let timeUntilUpdate = state.updateInterval
-    let updateCycle = 500
-    const interval = setInterval(() => {
-      timeUntilUpdate = timeUntilUpdate - updateCycle
+  // useEffect(() => {
+  //   let timeUntilUpdate = state.updateInterval
+  //   let updateCycle = 500
+  //   const interval = setInterval(() => {
+  //     timeUntilUpdate = timeUntilUpdate - updateCycle
 
-      dispatch({
-        type: 'updateTimeUntilUpdate',
-        value: timeUntilUpdate,
-      })
-    }, updateCycle)
-    return () => clearInterval(interval)
-  }, [state.lastUpdate])
+  //     dispatch({
+  //       type: 'updateTimeUntilUpdate',
+  //       value: timeUntilUpdate,
+  //     })
+  //   }, updateCycle)
+  //   return () => clearInterval(interval)
+  // }, [state.lastUpdate])
 
   return (
     <>
