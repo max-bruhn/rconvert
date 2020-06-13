@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import StateContext from '../../StateContext'
+import DispatchContext from '../../DispatchContext'
 import { useImmer } from 'use-immer'
 import { isEqual } from 'lodash'
 import { CSSTransition } from 'react-transition-group'
@@ -10,12 +11,14 @@ import transition from './transition.module.scss'
 
 const Card = (props) => {
   const appState = useContext(StateContext)
-  // const appDispatch = useContext(DispatchContext)
+  const appDispatch = useContext(DispatchContext)
 
   const [state, setState] = useImmer({
     currencies: [],
     amount: 0,
     display: false,
+    isDragging: false,
+    underneathDragged: false,
   })
 
   function clickHandler(curr) {
@@ -56,9 +59,9 @@ const Card = (props) => {
     // set id to props.currency as string, so it can easily parsed as obj when drag ends (inside content.jsx onDragEnd handler)
     <Draggable draggableId={JSON.stringify(props.currency)} index={props.id}>
       {(provided, snapshot) => (
-        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`mb-6 ${snapshot.isDragging ? 'border-2 border-white rounded-lg' : ''}`}>
           <CSSTransition nodeRef={nodeRef} in={state.display} timeout={2000} classNames={transition} unmountOnExit>
-            <div ref={nodeRef} className={`h-24 mb-6 rounded-lg p-4 text-gray-200 ${styles.gradient} `}>
+            <div ref={nodeRef} className={`h-24  rounded-lg p-4 text-gray-200 ${styles.gradient} `}>
               <div className="font-bold text-xl pb-2">{props.currency.value}</div>
               <div>{props.currency.label}</div>
             </div>

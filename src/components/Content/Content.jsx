@@ -8,12 +8,9 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import Card from '../Card/Card'
 import Search from '../Search/Search'
 
-const queryAttr = 'data-rbd-drag-handle-draggable-id'
-
 const Content = () => {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
-  const [placeholderProps, setPlaceholderProps] = useState({})
 
   const [state, setState] = useImmer({
     tempCurr: [],
@@ -34,7 +31,7 @@ const Content = () => {
       return
     }
 
-    setPlaceholderProps({})
+    // setPlaceholderProps({})
 
     const newAddedCurrencies = [...appState.addedCurrencies]
 
@@ -42,39 +39,6 @@ const Content = () => {
     newAddedCurrencies.splice(destination.index, 0, JSON.parse(draggableId))
 
     appDispatch({ type: 'updateOrder', value: newAddedCurrencies })
-  }
-
-  const onDragUpdate = (update) => {
-    if (!update.destination) {
-      return
-    }
-    const draggableId = update.draggableId
-    const destinationIndex = update.destination.index
-
-    const domQuery = `[${queryAttr}='${draggableId}']`
-    const draggedDOM = document.querySelector(domQuery)
-    if (!draggedDOM) {
-      return
-    }
-    const { clientHeight, clientWidth } = draggedDOM
-
-    const clientY =
-      parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
-      [...draggedDOM.parentNode.children].slice(0, destinationIndex).reduce((total, curr) => {
-        const style = curr.currentStyle || window.getComputedStyle(curr)
-        // based on 1.5 rem == 24 px. 1.5 rem sued as bottom margin for each card
-        const marginBottom = 24
-        // const marginBottom = parseFloat(style.marginBottom)
-        console.log(parseFloat(total))
-        return total + curr.clientHeight + marginBottom
-      }, 0)
-
-    setPlaceholderProps({
-      clientHeight,
-      clientWidth,
-      clientY,
-      clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingLeft),
-    })
   }
 
   return (
@@ -94,7 +58,7 @@ const Content = () => {
             <span className="text-sm pt-3 pr-5 inline-block">Drag a currency to the top to make it the base currency.</span>
           </div>
           <div className="w-full sm:w-2/3   sm:my-8">
-            <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
+            <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId={'droppableId1'}>
                 {(provided) => {
                   return (
@@ -103,19 +67,6 @@ const Content = () => {
                         return <Card key={curr.value} currency={curr} id={id} />
                       })}
                       {provided.placeholder}
-                      {/* <CustomPlaceholder snapshot={snapshot} /> */}
-                      <div
-                        style={{
-                          position: 'absolute',
-                          top: placeholderProps.clientY,
-                          left: placeholderProps.clientX,
-                          height: placeholderProps.clientHeight,
-                          background: 'tomato',
-                          width: placeholderProps.clientWidth,
-                          marginBottom: '2rem',
-                          // paddn
-                        }}
-                      />
                     </div>
                   )
                 }}

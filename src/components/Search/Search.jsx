@@ -169,6 +169,7 @@ const Search = () => {
     )
   }
 
+  // ref for css transition (otherwise throws warning in strict mode)
   const nodeRef = React.createRef()
 
   return (

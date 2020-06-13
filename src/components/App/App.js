@@ -17,6 +17,10 @@ function App() {
     lastUpdate: 0,
     timeUntilUpdate: 0,
     updateInterval: 60000,
+    dragging: {
+      isActive: false,
+      index: 0,
+    },
   }
 
   const ourReducer = (draft, action) => {
