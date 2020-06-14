@@ -51,13 +51,13 @@ const Card = (props) => {
   useEffect(() => {
     const rate = appState.rates[props.currency.value]
 
-    if (props.id !== 0) {
+    if (props.id !== 0 && !appState.isFetching) {
       setState((draft) => {
         draft.amount = parseFloat(appState.baseAmount * rate).toFixed(2)
       })
     }
 
-    // get amount from addState if it's freshly loaded from storage
+    // get amount from appState if it's freshly loaded from storage
     if (props.id == 0 && appState.loadedAmountFromStorage) {
       setState((draft) => {
         draft.amount = appState.baseAmount

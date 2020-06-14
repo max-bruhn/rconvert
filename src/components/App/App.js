@@ -20,6 +20,7 @@ function App() {
     timeUntilUpdate: 0,
     updateInterval: 60000,
     loadedAmountFromStorage: false,
+    isFetching: false,
   }
 
   const ourReducer = (draft, action) => {
@@ -33,6 +34,9 @@ function App() {
           }
         }
 
+        return
+      case 'isFetching':
+        draft.isFetching = action.value
         return
       case 'updateOrder':
         draft.addedCurrencies = [...action.value]
@@ -124,6 +128,7 @@ function App() {
   // updates rates
   async function getLatestRates(base) {
     console.log(base)
+    dispatch({ type: 'isFetching', value: true })
     // call this function with state.addedCurrencies[0].value
     if (state.addedCurrencies && state.addedCurrencies.length) {
       const ourRequest = Axios.CancelToken.source()
@@ -131,7 +136,7 @@ function App() {
       let response = await Axios.get(`https://api.exchangeratesapi.io/latest?base=${base}`, { cancelToken: ourRequest.token }).catch((error) => {
         return console.error('an error occurred fetching latest rates.')
       })
-
+      dispatch({ type: 'isFetching', value: false })
       if (response && response.data && response.data.rates) {
         console.log(response.data.rates)
         dispatch({
