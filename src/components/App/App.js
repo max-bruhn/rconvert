@@ -92,8 +92,6 @@ function App() {
     if (state.addedCurrencies && state.addedCurrencies.length) {
       localStorage.setItem('addedCurrencies', JSON.stringify(state.addedCurrencies))
     }
-
-    return
   }, [state.addedCurrencies])
 
   useEffect(() => {
@@ -107,7 +105,6 @@ function App() {
     if (state.addedCurrencies && state.addedCurrencies.length && state.addedCurrencies[0].value !== state.baseCurr) {
       dispatch({ type: 'updateBaseCurr', value: state.addedCurrencies[0].value })
       getLatestRates(state.addedCurrencies[0].value)
-      return
     }
   }, [state.addedCurrencies])
 
