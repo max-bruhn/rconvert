@@ -19,10 +19,7 @@ function App() {
     lastUpdate: 0,
     timeUntilUpdate: 0,
     updateInterval: 60000,
-    dragging: {
-      isActive: false,
-      index: 0,
-    },
+    loadedAmountFromStorage: false,
   }
 
   const ourReducer = (draft, action) => {
@@ -49,9 +46,6 @@ function App() {
       case 'removeCurrency':
         console.log('remove curr')
         return
-      case 'setCurrFromLocal':
-        draft.addedCurrencies = [...action.value]
-        return
       case 'clearLocalStorage':
         localStorage.removeItem('addedCurrencies')
         localStorage.removeItem('searchCurrencies')
@@ -67,6 +61,12 @@ function App() {
       case 'updateTimeUntilUpdate':
         draft.timeUntilUpdate = action.value
         return
+      case 'loadedAmountFromStorage':
+        // set to false when item is dragged or aadded or data cleared
+        // true if fresh loaded from storage
+        // neccessary to prevent [0] card loading default amount if baseAmount is included in local storage
+        draft.loadedAmountFromStorage = action.value
+        return
       default:
         return console.log('default')
     }
@@ -75,24 +75,32 @@ function App() {
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
 
   const clearLocalStorage = () => {
-    return dispatch({ type: 'clearLocalStorage' })
+    dispatch({ type: 'loadedAmountFromStorage', value: false })
+    dispatch({ type: 'clearLocalStorage' })
   }
 
-  // sets currency array with localStorage
+  // populate from localStorage
   useEffect(() => {
     if (localStorage.getItem('addedCurrencies') && localStorage.getItem('addedCurrencies').split(',').length) {
       let value = JSON.parse(localStorage.getItem('addedCurrencies'))
+      dispatch({ type: 'updateOrder', value })
+    }
 
-      return dispatch({ type: 'setCurrFromLocal', value })
+    if (localStorage.getItem('baseAmount')) {
+      let value = localStorage.getItem('baseAmount')
+      dispatch({ type: 'updateBaseAmount', value })
+      dispatch({ type: 'loadedAmountFromStorage', value: true })
     }
   }, [])
 
   // updates localStorage
   useEffect(() => {
     if (state.addedCurrencies && state.addedCurrencies.length) {
+      console.log(state.baseAmount)
       localStorage.setItem('addedCurrencies', JSON.stringify(state.addedCurrencies))
+      localStorage.setItem('baseAmount', state.baseAmount)
     }
-  }, [state.addedCurrencies])
+  }, [state.addedCurrencies, state.baseAmount])
 
   useEffect(() => {
     if (state.addedCurrencies && state.addedCurrencies.length && Date.now() - state.lastUpdate >= state.updateInterval) {

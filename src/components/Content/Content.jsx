@@ -37,6 +37,7 @@ const Content = () => {
     newAddedCurrencies.splice(destination.index, 0, JSON.parse(draggableId))
 
     appDispatch({ type: 'updateOrder', value: newAddedCurrencies })
+    appDispatch({ type: 'loadedAmountFromStorage', value: false })
   }
 
   return (

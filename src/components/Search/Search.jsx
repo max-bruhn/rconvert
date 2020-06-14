@@ -105,6 +105,7 @@ const Search = () => {
 
     if (isUnique) {
       appDispatch({ type: 'addCurrency', value: state.filteredOptions[state.dropdown.selected].value })
+      appDispatch({ type: 'loadedAmountFromStorage', value: false })
       setState((draft) => {
         draft.display = false
         draft.dropdown.selected = 0

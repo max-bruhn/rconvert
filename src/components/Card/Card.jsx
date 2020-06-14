@@ -49,18 +49,26 @@ const Card = (props) => {
 
   // update amount if baseAmount has been changed and is not base currency
   useEffect(() => {
-    if (props.id !== 0) {
-      const rate = appState.rates[props.currency.value]
+    const rate = appState.rates[props.currency.value]
 
+    if (props.id !== 0) {
       setState((draft) => {
         draft.amount = parseFloat(appState.baseAmount * rate).toFixed(2)
       })
+    }
+
+    // get amount from addState if it's freshly loaded from storage
+    if (props.id == 0 && appState.loadedAmountFromStorage) {
+      setState((draft) => {
+        draft.amount = appState.baseAmount
+      })
+      appDispatch({ type: 'loadedAmountFromStorage', value: false })
     }
   }, [appState.baseAmount, appState.rates])
 
   // update base currency if this card was dragged to the top
   useEffect(() => {
-    if (props.id == 0) {
+    if (props.id == 0 && !appState.loadedAmountFromStorage) {
       appDispatch({ type: 'updateBaseAmount', value: state.amount })
     }
   }, [appState.addedCurrencies])
@@ -72,7 +80,7 @@ const Card = (props) => {
       return
     }
 
-    // onnly allow digits, a - in front and one dot. remove trailing 0
+    // only allow digits, - in front and one dot. remove trailing 0
     let value = e.target.value
       .replace(/[^0-9.-]/g, '')
       .replace(/(\..*)\./g, '$1')
@@ -86,7 +94,7 @@ const Card = (props) => {
     appDispatch({ type: 'updateBaseAmount', value })
   }
 
-  // sets cursor to the end of input
+  // if input is clicked, all is selected
   const inputRef = useRef()
 
   function clickHandler(e) {
@@ -120,10 +128,10 @@ const Card = (props) => {
                     type="text"
                     inputMode="numeric"
                     onClick={clickHandler}
-                    onInput={(e) => inputHandler(e)}
+                    onChange={(e) => inputHandler(e)}
                     value={state.amount}
                     className="float-right w-6/12 pr-1
- bg-opacity-25 bg-white rounded-lg text-right align-bottom  font-bold text-xl  "
+ bg-opacity-25 bg-white rounded-lg text-right align-bottom font-bold text-xl  "
                   />
                 ) : (
                   <Amount />
