@@ -12,21 +12,16 @@ import transition from './transition.module.scss'
 const Card = (props) => {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
+  // const inputRef = useRef()
 
   const [state, setState] = useImmer({
     currencies: [],
-    amount: 0,
+    amount: 1,
     display: false,
     isDragging: false,
     underneathDragged: false,
+    type: 'number',
   })
-
-  function clickHandler(curr) {
-    setState((draft) => {
-      draft.edit.isEditing = true
-      draft.edit.editingWhat = curr
-    })
-  }
 
   function changeHandler(amount) {
     setState((draft) => {
@@ -72,12 +67,26 @@ const Card = (props) => {
       return
     }
     let value = e.target.value
+      .replace(/[^0-9.-]/g, '')
+      .replace(/(\..*)\./g, '$1')
+      .replace(/(?!^)-/g, '')
+      .replace(/^0+/, '')
 
     setState((draft) => {
-      draft.amount = e.target.value
+      draft.amount = value
     })
 
     appDispatch({ type: 'updateBaseAmount', value })
+  }
+
+  // sets cursor to the end of input
+  const inputRef = useRef()
+
+  function clickHandler(e) {
+    e.preventDefault()
+
+    inputRef.current.selectionStart = inputRef.current.value.length
+    inputRef.current.selectionEnd = inputRef.current.value.length
   }
 
   // ref for css transition (otherwise throws warning in strict mode)
@@ -100,10 +109,11 @@ const Card = (props) => {
                 {props.id == 0 ? (
                   <input
                     key={props.currency.value}
-                    type="number"
-                    pattern="[0-9]*"
+                    ref={inputRef}
+                    type="text"
                     inputMode="numeric"
-                    onChange={(e) => inputHandler(e)}
+                    onClick={clickHandler}
+                    onInput={(e) => inputHandler(e)}
                     value={state.amount}
                     className="float-right w-6/12 pr-1
  bg-opacity-25 bg-white rounded-lg text-right align-bottom  font-bold text-xl  "
