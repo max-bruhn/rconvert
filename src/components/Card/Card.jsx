@@ -47,18 +47,23 @@ const Card = (props) => {
     return
   }, [appState.addedCurrencies])
 
-  // update amount if baseAmount has been changed
+  // update amount if baseAmount has been changed and is not base currency
+  useEffect(() => {
+    if (props.id !== 0) {
+      const rate = appState.rates[props.currency.value]
+
+      setState((draft) => {
+        draft.amount = parseFloat(appState.baseAmount * rate).toFixed(2)
+      })
+    }
+  }, [appState.baseAmount, appState.rates])
+
+  // update base currency if this card was dragged to the top
   useEffect(() => {
     if (props.id == 0) {
-      return
+      appDispatch({ type: 'updateBaseAmount', value: state.amount })
     }
-
-    const rate = appState.rates[props.currency.value]
-
-    setState((draft) => {
-      draft.amount = parseFloat(appState.baseAmount * rate).toFixed(2)
-    })
-  }, [appState.baseAmount, appState.rates])
+  }, [appState.addedCurrencies])
 
   function inputHandler(e) {
     e.preventDefault()
@@ -66,6 +71,8 @@ const Card = (props) => {
     if (props.id != 0) {
       return
     }
+
+    // onnly allow digits, a - in front and one dot. remove trailing 0
     let value = e.target.value
       .replace(/[^0-9.-]/g, '')
       .replace(/(\..*)\./g, '$1')
@@ -85,7 +92,7 @@ const Card = (props) => {
   function clickHandler(e) {
     e.preventDefault()
 
-    inputRef.current.selectionStart = inputRef.current.value.length
+    inputRef.current.selectionStart = 0
     inputRef.current.selectionEnd = inputRef.current.value.length
   }
 
