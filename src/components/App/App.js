@@ -81,9 +81,14 @@ function App() {
 
   // populate from localStorage
   useEffect(() => {
+    console.log(state.cleared)
     if (localStorage.getItem('addedCurrencies') && localStorage.getItem('addedCurrencies').split(',').length) {
       let value = JSON.parse(localStorage.getItem('addedCurrencies'))
       dispatch({ type: 'updateOrder', value })
+    } else {
+      ;['EUR', 'USD', 'GBP', 'CHF'].forEach((curr) => {
+        dispatch({ type: 'addCurrency', value: curr })
+      })
     }
 
     if (localStorage.getItem('baseAmount')) {
