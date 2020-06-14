@@ -73,15 +73,15 @@ const Card = (props) => {
     }
     let value = e.target.value
 
+    setState((draft) => {
+      draft.amount = e.target.value
+    })
+
     appDispatch({ type: 'updateBaseAmount', value })
   }
 
   // ref for css transition (otherwise throws warning in strict mode)
   const nodeRef = React.createRef()
-
-  function Input() {
-    return <input type="number" pattern="[0-9]*" inputMode="numeric" autoFocus onChange={(e) => inputHandler(e)} value={appState.baseAmount} className="float-right bg-opacity-25 bg-white rounded-lg text-right align-bottom  font-bold text-xl " />
-  }
 
   function Amount() {
     return <span className="float-right align-bottom leading-10 font-bold text-xl ">{isNaN(state.amount) ? '-' : state.amount}</span>
@@ -91,13 +91,26 @@ const Card = (props) => {
     // set id to props.currency as string, so it can easily parsed as obj when drag ends (inside content.jsx onDragEnd handler)
     <Draggable draggableId={JSON.stringify(props.currency)} index={props.id}>
       {(provided, snapshot) => (
-        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`mb-6 ${snapshot.isDragging ? 'border-2 border-white rounded-lg' : ''}`}>
+        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`mb-4 lg:mb-6 ${snapshot.isDragging ? 'border-2 border-white rounded-lg' : ''}`}>
           <CSSTransition nodeRef={nodeRef} in={state.display} timeout={2000} classNames={transition} unmountOnExit>
             <div ref={nodeRef} className={`h-24  rounded-lg p-4 text-gray-200 ${styles.gradient} `}>
               <div className="font-bold text-xl pb-2">{props.currency.value}</div>
               <div className="w-full">
                 <span className="float-left align-bottom leading-10">{props.currency.label}</span>
-                {props.id == 0 ? <Input /> : <Amount />}
+                {props.id == 0 ? (
+                  <input
+                    key={props.currency.value}
+                    type="number"
+                    pattern="[0-9]*"
+                    inputMode="numeric"
+                    onChange={(e) => inputHandler(e)}
+                    value={state.amount}
+                    className="float-right w-6/12 pr-1
+ bg-opacity-25 bg-white rounded-lg text-right align-bottom  font-bold text-xl  "
+                  />
+                ) : (
+                  <Amount />
+                )}
               </div>
             </div>
           </CSSTransition>
