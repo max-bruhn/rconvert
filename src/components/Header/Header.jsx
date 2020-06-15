@@ -1,29 +1,49 @@
 import React, { useEffect, useContext } from 'react'
-import { CircularProgressbar } from 'react-circular-progressbar'
 import DispatchContext from '../../DispatchContext'
-// import StateContext from '../../StateContext'
+import Spinner from '../Spinner/Spinner'
+import StateContext from '../../StateContext'
+import { useImmer } from 'use-immer'
 
 const Header = () => {
   const appDispatch = useContext(DispatchContext)
+  const appState = useContext(StateContext)
 
   const clearLocalStorage = () => {
     return appDispatch({ type: 'clearLocalStorage' })
   }
 
+  const [state, setState] = useImmer({
+    time: '',
+  })
+
+  useEffect(() => {
+    const date = new Date(appState.lastUpdate)
+    const time = date.toLocaleTimeString()
+
+    setState((draft) => {
+      draft.time = time
+    })
+  }, [appState.lastUpdate])
+
   return (
     <>
-      <div className="h-20 px-8">
+      <div className="h-20 px-4 md:px-8 lg:px-12 xl:px-16">
         <div className="float-left text-gray-200 font-bold text-xl pt-6">RCONVERT</div>
-        <button
-          onClick={clearLocalStorage}
-          className="
-          mt-4
-      float-right 
-      bg-transparent hover:bg-gray-700 text-gray-500 font-thin  py-2 px-4 border border-gray-500 rounded
-      "
-        >
-          Clean Data
-        </button>
+        <div className="float-right">
+          {appState.isFetching ? <Spinner /> : ''}
+          <div className="hidden sm:inline-block text-gray-500 mr-4 font-thin  origin-right">Last Update: {state.time}</div>
+
+          <button
+            onClick={clearLocalStorage}
+            className="
+            mt-4
+            px-6
+        bg-transparent hover:bg-gray-700 text-gray-500 font-thin  py-2 px-4 border border-gray-500 rounded-lg
+        "
+          >
+            Clear All
+          </button>
+        </div>
       </div>
     </>
   )
