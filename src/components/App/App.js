@@ -9,6 +9,7 @@ import './App.css'
 import Header from '../Header/Header'
 import Content from '../Content/Content'
 import data from '../../data/data.json'
+import Scroll from '../Scroll/Scroll'
 
 function App() {
   const initialState = {
@@ -85,7 +86,6 @@ function App() {
 
   // populate from localStorage
   useEffect(() => {
-    console.log(state.cleared)
     if (localStorage.getItem('addedCurrencies') && localStorage.getItem('addedCurrencies').split(',').length) {
       let value = JSON.parse(localStorage.getItem('addedCurrencies'))
       dispatch({ type: 'updateOrder', value })
@@ -127,7 +127,6 @@ function App() {
 
   // updates rates
   async function getLatestRates(base) {
-    console.log(base)
     dispatch({ type: 'isFetching', value: true })
     // call this function with state.addedCurrencies[0].value
     if (state.addedCurrencies && state.addedCurrencies.length) {
@@ -164,21 +163,6 @@ function App() {
     return () => clearInterval(interval)
   }, [state.lastUpdate])
 
-  // set percentage for loading icon
-  // useEffect(() => {
-  //   let timeUntilUpdate = state.updateInterval
-  //   let updateCycle = 500
-  //   const interval = setInterval(() => {
-  //     timeUntilUpdate = timeUntilUpdate - updateCycle
-
-  //     dispatch({
-  //       type: 'updateTimeUntilUpdate',
-  //       value: timeUntilUpdate,
-  //     })
-  //   }, updateCycle)
-  //   return () => clearInterval(interval)
-  // }, [state.lastUpdate])
-
   return (
     <>
       <StateContext.Provider value={state}>
@@ -186,6 +170,7 @@ function App() {
           <div className="container  mx-auto lg:px-4 xl:px-32">
             <Header />
             <Content />
+            <Scroll />
           </div>
         </DispatchContext.Provider>
       </StateContext.Provider>

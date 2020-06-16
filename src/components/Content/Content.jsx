@@ -14,6 +14,7 @@ const Content = () => {
 
   const [state, setState] = useImmer({
     tempCurr: [],
+    showScroll: false,
   })
 
   useEffect(() => {
