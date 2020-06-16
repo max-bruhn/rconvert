@@ -48,9 +48,6 @@ function App() {
       case 'updateBaseAmount':
         draft.baseAmount = action.value
         return
-      case 'removeCurrency':
-        console.log('remove curr')
-        return
       case 'clearLocalStorage':
         localStorage.removeItem('addedCurrencies')
         localStorage.removeItem('searchCurrencies')
@@ -78,11 +75,6 @@ function App() {
   }
 
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
-
-  const clearLocalStorage = () => {
-    dispatch({ type: 'loadedAmountFromStorage', value: false })
-    dispatch({ type: 'clearLocalStorage' })
-  }
 
   // populate from localStorage
   useEffect(() => {

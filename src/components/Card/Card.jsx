@@ -8,6 +8,7 @@ import { Draggable } from 'react-beautiful-dnd'
 
 import styles from './Card.module.scss'
 import transition from './transition.module.scss'
+import icon from '../../assets/icons/delete.svg'
 
 const Card = (props) => {
   const appState = useContext(StateContext)
@@ -104,6 +105,23 @@ const Card = (props) => {
     inputRef.current.selectionEnd = inputRef.current.value.length
   }
 
+  function deleteHandler() {
+    setState((draft) => {
+      draft.display = false
+    })
+    // set timeout so transition can happen before card is remove from .map
+    setTimeout(() => {
+      let addedCurrencies = [...appState.addedCurrencies]
+      addedCurrencies.splice(props.id, 1)
+
+      appDispatch({ type: 'updateOrder', value: addedCurrencies })
+
+      if (addedCurrencies.length === 0) {
+        appDispatch({ type: 'clearLocalStorage' })
+      }
+    }, 200)
+  }
+
   // ref for css transition (otherwise throws warning in strict mode)
   const nodeRef = React.createRef()
 
@@ -116,9 +134,15 @@ const Card = (props) => {
     <Draggable draggableId={JSON.stringify(props.currency)} index={props.id}>
       {(provided, snapshot) => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`mb-4 lg:mb-6 ${snapshot.isDragging ? 'border-2 border-white rounded-lg' : ''}`}>
-          <CSSTransition nodeRef={nodeRef} in={state.display} timeout={2000} classNames={transition} unmountOnExit>
+          <CSSTransition nodeRef={nodeRef} in={state.display} timeout={200} classNames={transition} unmountOnExit>
             <div ref={nodeRef} className={`h-24 overflow-hidden rounded-lg p-4 text-gray-200 ${styles.gradient} `}>
-              <div className="font-bold text-xl pb-2">{props.currency.value}</div>
+              <div className="font-bold text-xl pb-2 w-2/4 inline">{props.currency.value}</div>
+              <div className="inline float-right ">
+                <div onClick={deleteHandler} className={styles.wrapper}>
+                  <div className={`${styles.dash} ${styles.left}`}></div>
+                  <div className={`${styles.dash} ${styles.right}`}></div>
+                </div>
+              </div>
               <div className="w-full">
                 <span className="float-left align-bottom leading-10 w-6/12">{props.currency.label}</span>
                 {props.id == 0 ? (

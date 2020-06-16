@@ -1,7 +1,43 @@
+$icon-color: #e2e8f0;
+
 .gradient {
   background: rgb(132, 85, 195);
   background: linear-gradient(354deg, rgba(132, 85, 195, 1) 19%, rgba(243, 129, 114, 1) 50%, rgba(204, 87, 141, 1) 100%);
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* <- here it is */
+  background-attachment: fixed;
+}
+
+.wrapper {
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: scale(0.75);
+  transform-origin: center;
+  padding: 4px 0 2px 1px;
+  transition: transform 500ms ease-in-out;
+  cursor: pointer;
+}
+
+.wrapper:hover {
+  transform: rotate(180deg) scale(0.75);
+  transition: transform 500ms ease-in-out;
+}
+
+.dash {
+  position: absolute;
+  height: 1.5rem;
+  width: 0.2rem;
+  background-color: $icon-color;
+}
+
+.left {
+  transform-origin: top left;
+  transform: rotate(-45deg);
+  z-index: 1;
+}
+
+.right {
+  transform-origin: top right;
+  transform: rotate(45deg) translateX(0.75rem) translateY(-0.75rem);
+  z-index: 2;
 }
