@@ -122,6 +122,13 @@ const Card = (props) => {
     }, 200)
   }
 
+  function enterHandler(e) {
+    console.log('enter')
+    if (e.key == 'Enter') {
+      e.target.blur()
+    }
+  }
+
   // ref for css transition (otherwise throws warning in strict mode)
   const nodeRef = React.createRef()
 
@@ -153,6 +160,7 @@ const Card = (props) => {
                     inputMode="numeric"
                     onClick={clickHandler}
                     onChange={(e) => inputHandler(e)}
+                    onKeyUp={enterHandler}
                     value={state.amount}
                     className="float-right w-6/12 pr-1
  bg-opacity-25 bg-white rounded-lg text-right align-bottom font-bold text-xl  "
