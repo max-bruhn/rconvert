@@ -1,0 +1,19 @@
+/* scroll transitions */
+
+.enter {
+  opacity: 0.01;
+}
+
+.enterActive {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exitActive {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in-out;
+}

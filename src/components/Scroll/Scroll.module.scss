@@ -3,23 +3,16 @@ $accent-color: #e2e8f0;
 $accent-color-mobile: #909294;
 
 #round {
-  width: 50px;
-  height: 50px;
-  background-color: $bg-color;
-  border-radius: 160px;
-  border: 2px solid $accent-color;
-  opacity: 0.8;
+  width: 100px;
+  height: 100px;
+
   position: fixed;
   cursor: pointer;
-
-  -webkit-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.2);
-  box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.2);
 
   bottom: 3%;
   left: 1rem;
 
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 @media only screen and (min-width: 640px) {
@@ -45,10 +38,18 @@ $accent-color-mobile: #909294;
 }
 
 #relative-wrapper {
+  background-color: $bg-color;
+  border-radius: 160px;
+  border: 2px solid $accent-color;
+  opacity: 0.6;
   position: relative;
   height: 50px;
   width: 50px;
   top: 0%;
+
+  -webkit-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.2);
 
   animation-name: bounce;
   animation-duration: 0.4s;
