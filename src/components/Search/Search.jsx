@@ -103,7 +103,7 @@ const Search = () => {
         }
       })
 
-    if (isUnique) {
+    if (isUnique && state.filteredOptions && state.filteredOptions.length) {
       appDispatch({ type: 'addCurrency', value: state.filteredOptions[state.dropdown.selected].value })
       appDispatch({ type: 'loadedAmountFromStorage', value: false })
       setState((draft) => {
@@ -140,7 +140,7 @@ const Search = () => {
           }
         })
 
-      if (isUnique) {
+      if (isUnique && state.filteredOptions && state.filteredOptions.length) {
         appDispatch({ type: 'addCurrency', value: state.filteredOptions[state.dropdown.selected].value })
         setState((draft) => {
           draft.display = false
