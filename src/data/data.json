@@ -1,52 +1,130 @@
 [
   {
     "value": "AUD",
-    "label": "Australian Dollar",
-    "country": "Australia"
+    "label": "Australian Dollar"
   },
   {
     "value": "BGN",
-    "label": "Bulgarian Lev",
-    "country": "Bulgaria"
+    "label": "Bulgarian Lev"
   },
   {
     "value": "BRL",
-    "label": "Brazilian Real",
-    "country": "Brazil"
+    "label": "Brazilian Real"
   },
   {
     "value": "CAD",
-    "label": "Canadian Dollar",
-    "country": "Canada"
+    "label": "Canadian Dollar"
   },
   {
     "value": "CHF",
-    "label": "Swiss Franc",
-    "country": "Switzerland"
+    "label": "Swiss Franc"
   },
   {
     "value": "CNY",
-    "label": "Chinese Yuan Renminbi",
-    "country": "Peoples Republic of China"
+    "label": "Chinese Yuan Renminbi"
   },
   {
     "value": "DKK",
-    "label": "Danish Krone",
-    "country": "Denmark"
+    "label": "Danish Krone"
   },
   {
     "value": "GBP",
-    "label": "Pound Sterlin",
-    "country": "United Kingdom"
+    "label": "Pound Sterling"
   },
   {
     "value": "USD",
-    "label": "US Dollar",
-    "country": "United States of America"
+    "label": "US Dollar"
   },
   {
     "value": "EUR",
-    "label": "Euro",
-    "country": "EU Zone"
+    "label": "Euro"
+  },
+  {
+    "value": "HKD",
+    "label": "Hong Kong Dollar"
+  },
+  {
+    "value": "HRK",
+    "label": "Croatian kuna"
+  },
+  {
+    "value": "HUF",
+    "label": "Hungarian Forint"
+  },
+  {
+    "value": "IDR",
+    "label": "Indonesian Rupiah"
+  },
+  {
+    "value": "ILS",
+    "label": "Israeli Shekel"
+  },
+  {
+    "value": "INR",
+    "label": "Indian Rupee"
+  },
+  {
+    "value": "ISK",
+    "label": "Icelandic Krona"
+  },
+  {
+    "value": "JPY",
+    "label": "Japanese Yen"
+  },
+  {
+    "value": "KRW",
+    "label": "South Korean Won"
+  },
+  {
+    "value": "MXN",
+    "label": "Mexican Peso"
+  },
+  {
+    "value": "MYR",
+    "label": "Malaysian Ringgit"
+  },
+  {
+    "value": "NOK",
+    "label": "Norwegian Krone"
+  },
+  {
+    "value": "NZD",
+    "label": "New Zealand Dollar"
+  },
+  {
+    "value": "PHP",
+    "label": "Philippine Peso"
+  },
+  {
+    "value": "PLN",
+    "label": "Polish Zloty"
+  },
+  {
+    "value": "RON",
+    "label": "Romanian leu"
+  },
+  {
+    "value": "RUB",
+    "label": "Russian rouble"
+  },
+  {
+    "value": "SEK",
+    "label": "Swedish Krona"
+  },
+  {
+    "value": "SGD",
+    "label": "Singapore Dollar"
+  },
+  {
+    "value": "THB",
+    "label": "Thai Baht"
+  },
+  {
+    "value": "TRY",
+    "label": "Turkish Lira"
+  },
+  {
+    "value": "ZAR",
+    "label": "South African Rand"
   }
 ]
