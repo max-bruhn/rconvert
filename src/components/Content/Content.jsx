@@ -49,7 +49,7 @@ const Content = () => {
             <span>ADD CURRENCIES</span>
           </div>
 
-          <div className="w-full sm:w-2/3  bg-gray-400 my-3">
+          <div className="w-full sm:w-2/3 my-3">
             <Search />
           </div>
 
