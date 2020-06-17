@@ -13,15 +13,19 @@ const Header = () => {
   }
 
   const [state, setState] = useImmer({
-    time: '',
+    timeString: '-',
   })
 
   useEffect(() => {
-    const date = new Date(appState.lastUpdate)
-    const time = date.toLocaleTimeString()
+    let time = '-'
+    if (appState.lastUpdate > 0) {
+      // it would show briefly 0 (7am) if no if statement
+      const date = new Date(appState.lastUpdate)
+      time = date.toLocaleTimeString()
+    }
 
     setState((draft) => {
-      draft.time = time
+      draft.timeString = time
     })
   }, [appState.lastUpdate])
 
@@ -31,7 +35,7 @@ const Header = () => {
         <div className="float-left text-gray-200 font-bold text-xl pt-6">RCONVERT</div>
         <div className="float-right">
           {appState.isFetching ? <Spinner /> : ''}
-          <div className="hidden sm:inline-block text-gray-500 mr-4 font-thin  origin-right">Last Update: {state.time}</div>
+          <div className="hidden sm:inline-block text-gray-500 mr-4 font-thin  origin-right">Last Update: {state.timeString}</div>
 
           <button
             onClick={clearLocalStorage}
