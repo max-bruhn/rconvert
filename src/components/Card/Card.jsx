@@ -163,7 +163,7 @@ const Card = (props) => {
                     onKeyUp={enterHandler}
                     value={state.amount}
                     className="float-right w-6/12 pr-1
- bg-opacity-25 bg-white rounded-lg text-right align-bottom font-bold text-xl  "
+ bg-opacity-25 bg-white rounded-lg text-right align-bottom font-bold text-xl outline-none border border-transparent focus:border-white "
                   />
                 ) : (
                   <Amount />
