@@ -10,6 +10,7 @@ import Header from '../Header/Header'
 import Content from '../Content/Content'
 import data from '../../data/data.json'
 import Scroll from '../Scroll/Scroll'
+import Footer from '../Footer/Footer'
 
 function App() {
   const initialState = {
@@ -163,6 +164,7 @@ function App() {
             <Header />
             <Content />
             <Scroll />
+            <Footer />
           </div>
         </DispatchContext.Provider>
       </StateContext.Provider>
