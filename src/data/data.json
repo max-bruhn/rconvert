@@ -28,17 +28,14 @@
     "label": "Danish Krone"
   },
   {
-    "value": "GBP",
-    "label": "Pound Sterling"
-  },
-  {
-    "value": "USD",
-    "label": "US Dollar"
-  },
-  {
     "value": "EUR",
     "label": "Euro"
   },
+  {
+    "value": "GBP",
+    "label": "Pound Sterling"
+  },
+
   {
     "value": "HKD",
     "label": "Hong Kong Dollar"
@@ -122,6 +119,10 @@
   {
     "value": "TRY",
     "label": "Turkish Lira"
+  },
+  {
+    "value": "USD",
+    "label": "US Dollar"
   },
   {
     "value": "ZAR",
