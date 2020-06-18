@@ -68,8 +68,15 @@ const Search = () => {
   }
 
   function filterHandler(input) {
+    if (input && input !== '') {
+      setState((draft) => {
+        draft.display = true
+      })
+    }
+
     if (input === '') {
       setState((draft) => {
+        draft.display = false
         draft.filteredOptions = [...state.options]
       })
       return
@@ -181,16 +188,6 @@ const Search = () => {
             <path class="heroicon-ui" d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
           </svg>
           <input
-            onFocus={() => {
-              setState((draft) => {
-                draft.display = true
-              })
-            }}
-            onClick={() => {
-              setState((draft) => {
-                draft.display = true
-              })
-            }}
             onKeyUp={(e) => {
               keyUpHandler(e)
             }}
