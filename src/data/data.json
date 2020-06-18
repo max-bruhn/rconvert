@@ -114,7 +114,8 @@
   },
   {
     "value": "THB",
-    "label": "Thai Baht"
+    "label": "Thai Baht",
+    "image": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1923&q=80"
   },
   {
     "value": "TRY",
