@@ -1,132 +1,163 @@
 [
   {
     "value": "AUD",
-    "label": "Australian Dollar"
+    "label": "Australian Dollar",
+    "image": "https://images.unsplash.com/photo-1494948141550-221698c089c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "BGN",
-    "label": "Bulgarian Lev"
+    "label": "Bulgarian Lev",
+    "image": "https://images.unsplash.com/photo-1552386200-f0d20cc1bd23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "BRL",
-    "label": "Brazilian Real"
+    "label": "Brazilian Real",
+    "image": "https://images.unsplash.com/photo-1527374071603-76de89807336?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "CAD",
-    "label": "Canadian Dollar"
+    "label": "Canadian Dollar",
+    "image": "https://images.unsplash.com/photo-1530025809667-1f4bcff8e60f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "CHF",
-    "label": "Swiss Franc"
+    "label": "Swiss Franc",
+    "image": "https://images.unsplash.com/photo-1455348734739-11d7726c3c80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "CNY",
-    "label": "Chinese Yuan Renminbi"
+    "label": "Chinese Yuan Renminbi",
+    "image": "https://images.unsplash.com/photo-1542695807939-063af86fa22f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "DKK",
-    "label": "Danish Krone"
+    "label": "Danish Krone",
+    "image": "https://images.unsplash.com/photo-1531834486615-2aef2d365673?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "EUR",
-    "label": "Euro"
+    "label": "Euro",
+    "image": "https://images.unsplash.com/photo-1559589688-6ba6beafe1e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "GBP",
-    "label": "Pound Sterling"
+    "label": "Pound Sterling",
+    "image": "https://images.unsplash.com/photo-1546168924-4b5ef337005c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
 
   {
     "value": "HKD",
-    "label": "Hong Kong Dollar"
+    "label": "Hong Kong Dollar",
+    "image": "https://images.unsplash.com/photo-1532455935509-eb76842cee50?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "HRK",
-    "label": "Croatian kuna"
+    "label": "Croatian Kuna",
+    "image": "https://images.unsplash.com/photo-1414862625453-d87604a607e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "HUF",
-    "label": "Hungarian Forint"
+    "label": "Hungarian Forint",
+    "image": "https://images.unsplash.com/photo-1528968275578-1f02bd3a6dd2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "IDR",
-    "label": "Indonesian Rupiah"
+    "label": "Indonesian Rupiah",
+    "image": "https://images.unsplash.com/photo-1442544213729-6a15f1611937?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "ILS",
-    "label": "Israeli Shekel"
+    "label": "Israeli Shekel",
+    "image": "https://images.unsplash.com/photo-1464980195772-d5d6e9435fac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "INR",
-    "label": "Indian Rupee"
+    "label": "Indian Rupee",
+    "image": "https://images.unsplash.com/photo-1532375810709-75b1da00537c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "ISK",
-    "label": "Icelandic Krona"
+    "label": "Icelandic Krona",
+    "image": "https://images.unsplash.com/photo-1504829857797-ddff29c27927?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "JPY",
-    "label": "Japanese Yen"
+    "label": "Japanese Yen",
+    "image": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "KRW",
-    "label": "South Korean Won"
+    "label": "South Korean Won",
+    "image": "https://images.unsplash.com/photo-1472387040940-3ae0cdbf127d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "MXN",
-    "label": "Mexican Peso"
+    "label": "Mexican Peso",
+    "image": "https://images.unsplash.com/photo-1518638150340-f706e86654de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "MYR",
-    "label": "Malaysian Ringgit"
+    "label": "Malaysian Ringgit",
+    "image": "https://images.unsplash.com/photo-1549154425-7b519f2b92d4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "NOK",
-    "label": "Norwegian Krone"
+    "label": "Norwegian Krone",
+    "image": "https://images.unsplash.com/photo-1508592931388-95bc7b61033d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "NZD",
-    "label": "New Zealand Dollar"
+    "label": "New Zealand Dollar",
+    "image": "https://images.unsplash.com/photo-1507097634215-e82e6b518529?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "PHP",
-    "label": "Philippine Peso"
+    "label": "Philippine Peso",
+    "image": "https://images.unsplash.com/photo-1462557804967-1b4876a07c17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "PLN",
-    "label": "Polish Zloty"
+    "label": "Polish Zloty",
+    "image": "https://images.unsplash.com/photo-1532157345990-d3ab4df99902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "RON",
-    "label": "Romanian leu"
+    "label": "Romanian Leu",
+    "image": "https://images.unsplash.com/photo-1456348898220-eb3c574fd338?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "RUB",
-    "label": "Russian rouble"
+    "label": "Russian Rouble",
+    "image": "https://images.unsplash.com/photo-1547448415-e9f5b28e570d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "SEK",
-    "label": "Swedish Krona"
+    "label": "Swedish Krona",
+    "image": "https://images.unsplash.com/photo-1527156737205-c93d3dc84e87?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "SGD",
-    "label": "Singapore Dollar"
+    "label": "Singapore Dollar",
+    "image": "https://images.unsplash.com/flagged/photo-1562503542-2a1e6f03b16b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "THB",
     "label": "Thai Baht",
-    "image": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1923&q=80"
+    "image": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "TRY",
-    "label": "Turkish Lira"
+    "label": "Turkish Lira",
+    "image": "https://images.unsplash.com/photo-1510253687831-0f982d7862fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "USD",
-    "label": "US Dollar"
+    "label": "US Dollar",
+    "image": "https://images.unsplash.com/photo-1508433957232-3107f5fd5995?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   },
   {
     "value": "ZAR",
-    "label": "South African Rand"
+    "label": "South African Rand",
+    "image": "https://images.unsplash.com/photo-1525945995886-0ede2bd49ab6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
   }
 ]
