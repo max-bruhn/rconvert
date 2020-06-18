@@ -90,10 +90,6 @@ const Search = () => {
     })
   }
 
-  function selectHandler() {
-    console.log('selected')
-  }
-
   function hoverHandler(id) {
     setState((draft) => {
       draft.dropdown.selected = id
@@ -177,8 +173,17 @@ const Search = () => {
     )
   }
 
-  // ref for css transition (otherwise throws warning in strict mode)
+  function focusHandler(e) {
+    e.preventDefault()
+
+    inputRef.current.selectionStart = 0
+    inputRef.current.selectionEnd = inputRef.current.value.length
+  }
+
+  // ref for css transition
   const nodeRef = React.createRef()
+  // ref for input
+  const inputRef = useRef()
 
   return (
     <>
@@ -188,6 +193,8 @@ const Search = () => {
             <path className="heroicon-ui" d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
           </svg>
           <input
+            ref={inputRef}
+            onClick={focusHandler}
             onKeyUp={(e) => {
               keyUpHandler(e)
             }}
