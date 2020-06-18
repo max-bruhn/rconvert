@@ -39,7 +39,7 @@ const Search = () => {
       draft.filteredOptions = [...temp]
     })
     return
-  }, [appState.addedCurrencies])
+  }, [appState.addedCurrencies, setState])
 
   // ref to search div
   const searchDiv = useRef()
@@ -52,7 +52,7 @@ const Search = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [])
+  }, [handleClickOutside])
 
   //
   function handleClickOutside(e) {

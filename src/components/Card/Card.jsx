@@ -9,7 +9,6 @@ import data from '../../data/data.json'
 
 import styles from './Card.module.scss'
 import transition from './transition.module.scss'
-import icon from '../../assets/icons/delete.svg'
 
 const Card = (props) => {
   const appState = useContext(StateContext)
@@ -25,12 +24,6 @@ const Card = (props) => {
     type: 'number',
     imageUrl: '',
   })
-
-  function changeHandler(amount) {
-    setState((draft) => {
-      draft.amount = amount
-    })
-  }
 
   useEffect(() => {
     if (!state.display) {
@@ -55,7 +48,7 @@ const Card = (props) => {
     setState((draft) => {
       draft.imageUrl = url
     })
-  }, [state.display])
+  }, [state.display, props.currency, setState])
 
   useEffect(() => {
     let display = false
@@ -73,7 +66,7 @@ const Card = (props) => {
     })
 
     return
-  }, [appState.addedCurrencies])
+  }, [appState.addedCurrencies, props.currency, setState])
 
   // update amount if baseAmount has been changed and is not base currency
   useEffect(() => {

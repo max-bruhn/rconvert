@@ -1,8 +1,6 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import StateContext from '../../StateContext'
 import DispatchContext from '../../DispatchContext'
-import data from '../../data/data.json'
-import { useImmer } from 'use-immer'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import Card from '../Card/Card'
@@ -11,17 +9,6 @@ import Search from '../Search/Search'
 const Content = () => {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
-
-  const [state, setState] = useImmer({
-    tempCurr: [],
-    showScroll: false,
-  })
-
-  useEffect(() => {
-    setState((draft) => {
-      draft.tempCurr = [...data]
-    })
-  }, [])
 
   function onDragEnd(result) {
     const { destination, source, draggableId } = result
