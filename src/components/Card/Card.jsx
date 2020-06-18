@@ -5,6 +5,7 @@ import { useImmer } from 'use-immer'
 import { isEqual } from 'lodash'
 import { CSSTransition } from 'react-transition-group'
 import { Draggable } from 'react-beautiful-dnd'
+import data from '../../data/data.json'
 
 import styles from './Card.module.scss'
 import transition from './transition.module.scss'
@@ -22,6 +23,7 @@ const Card = (props) => {
     isDragging: false,
     underneathDragged: false,
     type: 'number',
+    imageUrl: '',
   })
 
   function changeHandler(amount) {
@@ -29,6 +31,31 @@ const Card = (props) => {
       draft.amount = amount
     })
   }
+
+  useEffect(() => {
+    if (!state.display) {
+      return
+    }
+    let unsplash
+    for (let i = 0; i <= data.length; i++) {
+      if (isEqual(data[i], props.currency)) {
+        unsplash = data[i].image
+        break
+      }
+    }
+
+    const baseUrl = 'https://res.cloudinary.com/rconvert/image/fetch'
+
+    const clientWidth = bgRef.current.clientWidth
+    const clientHeight = bgRef.current.clientHeight
+    const pixelRatio = window.devicePixelRatio || 1.0
+    const imageParams = `w_${100 * Math.round((clientWidth * pixelRatio) / 100)},h_${100 * Math.round((clientHeight * pixelRatio) / 100)},c_fill,g_auto,f_auto`
+    const url = `${baseUrl}/${imageParams}/${unsplash}`
+
+    setState((draft) => {
+      draft.imageUrl = url
+    })
+  }, [state.display])
 
   useEffect(() => {
     let display = false
@@ -131,6 +158,8 @@ const Card = (props) => {
 
   // ref for css transition (otherwise throws warning in strict mode)
   const nodeRef = React.createRef()
+  // for bg
+  const bgRef = useRef()
 
   function Amount() {
     return <span className="float-right align-bottom leading-10 font-bold text-xl ">{isNaN(state.amount) ? '-' : state.amount}</span>
@@ -142,34 +171,37 @@ const Card = (props) => {
       {(provided, snapshot) => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`mb-4 lg:mb-6 ${snapshot.isDragging ? 'shadow-lg' : ''}`}>
           <CSSTransition nodeRef={nodeRef} in={state.display} timeout={200} classNames={transition} unmountOnExit>
-            <div ref={nodeRef} className={`h-24 overflow-hidden rounded-lg p-4 text-gray-200 ${styles.gradient} `}>
-              <div className="font-bold text-xl pb-2 w-2/4 inline">{props.currency.value}</div>
-              <div className="inline float-right ">
-                <div onClick={deleteHandler} className={`w-3 h-3 cursor-pointer ${styles.tooltip}`}>
-                  <svg className={`w-3 h-3 fill-current `} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496.096 496.096">
-                    <path d="M259.41 247.998L493.754 13.654a8 8 0 000-11.312 8 8 0 00-11.312 0L248.098 236.686 13.754 2.342A8 8 0 002.442 13.654l234.344 234.344L2.442 482.342a8 8 0 00-.196 11.312 8 8 0 0011.508 0L248.098 259.31l234.344 234.344a8 8 0 0011.312-.196 8 8 0 000-11.116L259.41 247.998z" />
-                  </svg>
-                  <span className={`-mt-12 -ml-20 bg-grey-600 p-1 rounded ${styles['tooltip-text']}`}>Remove Me!</span>
-                </div>
-              </div>
-              <div className="w-full">
-                <span className="float-left align-bottom leading-10 w-6/12">{props.currency.label}</span>
-                {props.id == 0 ? (
-                  <input
-                    key={props.currency.value}
-                    ref={inputRef}
-                    type="text"
-                    inputMode="numeric"
-                    onClick={clickHandler}
-                    onChange={(e) => inputHandler(e)}
-                    onKeyUp={enterHandler}
-                    value={state.amount}
-                    className="float-right w-6/12 pr-1
+            <div ref={nodeRef} className={`h-24 overflow-hidden rounded-lg  text-gray-200 relative `}>
+              <div className=" w-full h-24 absolute bg-cover bg-no-repeat bg-center" ref={bgRef} style={{ backgroundImage: `url(${state.imageUrl})` }}>
+                <div className={`p-4 h-24 ${styles.gradient}`}>
+                  <div className="font-bold text-xl pb-2 w-2/4 inline">{props.currency.value}</div>
+                  <div className="inline float-right ">
+                    <div onClick={deleteHandler} className={`w-3 h-3 cursor-pointer ${styles.tooltip}`}>
+                      <svg className={`w-3 h-3 fill-current `} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496.096 496.096">
+                        <path d="M259.41 247.998L493.754 13.654a8 8 0 000-11.312 8 8 0 00-11.312 0L248.098 236.686 13.754 2.342A8 8 0 002.442 13.654l234.344 234.344L2.442 482.342a8 8 0 00-.196 11.312 8 8 0 0011.508 0L248.098 259.31l234.344 234.344a8 8 0 0011.312-.196 8 8 0 000-11.116L259.41 247.998z" />
+                      </svg>
+                      <span className={`-mt-12 -ml-20 bg-grey-600 p-1 rounded ${styles['tooltip-text']}`}>Remove Me!</span>
+                    </div>
+                  </div>
+                  <div className="w-full"></div>
+                  <span className="float-left align-bottom leading-10 w-6/12">{props.currency.label}</span>
+                  {props.id == 0 ? (
+                    <input
+                      key={props.currency.value}
+                      ref={inputRef}
+                      type="text"
+                      inputMode="numeric"
+                      onClick={clickHandler}
+                      onChange={(e) => inputHandler(e)}
+                      onKeyUp={enterHandler}
+                      value={state.amount}
+                      className="float-right w-6/12 pr-1
  bg-opacity-25 bg-white rounded-lg text-right align-bottom font-bold text-xl outline-none border border-transparent focus:border-white "
-                  />
-                ) : (
-                  <Amount />
-                )}
+                    />
+                  ) : (
+                    <Amount />
+                  )}
+                </div>
               </div>
             </div>
           </CSSTransition>
