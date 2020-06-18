@@ -174,7 +174,7 @@ const Search = () => {
   }
 
   function focusHandler(e) {
-    e.preventDefault()
+    // e.preventDefault()
 
     inputRef.current.selectionStart = 0
     inputRef.current.selectionEnd = inputRef.current.value.length
@@ -194,7 +194,12 @@ const Search = () => {
           </svg>
           <input
             ref={inputRef}
-            onClick={focusHandler}
+            onClick={(e) => {
+              focusHandler(e)
+              if (inputRef.current.value && inputRef.current.value.length) {
+                filterHandler(e.target.value)
+              }
+            }}
             onKeyUp={(e) => {
               keyUpHandler(e)
             }}
