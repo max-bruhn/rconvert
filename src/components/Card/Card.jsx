@@ -49,7 +49,7 @@ const Card = (props) => {
     const clientWidth = bgRef.current.clientWidth
     const clientHeight = bgRef.current.clientHeight
     const pixelRatio = window.devicePixelRatio || 1.0
-    const imageParams = `w_${100 * Math.round((clientWidth * pixelRatio) / 100)},h_${100 * Math.round((clientHeight * pixelRatio) / 100)},c_fill,g_auto,f_auto`
+    const imageParams = `w_${100 * Math.round((clientWidth * pixelRatio) / 100)},h_${100 * Math.round((clientHeight * pixelRatio) / 100)},c_fill,g_auto,f_auto,e_grayscale`
     const url = `${baseUrl}/${imageParams}/${unsplash}`
 
     setState((draft) => {
