@@ -173,9 +173,7 @@ const Search = () => {
     )
   }
 
-  function focusHandler(e) {
-    // e.preventDefault()
-
+  function focusHandler() {
     inputRef.current.selectionStart = 0
     inputRef.current.selectionEnd = inputRef.current.value.length
   }
