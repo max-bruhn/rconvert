@@ -43,7 +43,7 @@ const Content = () => {
 
   return (
     <>
-      <div className="container bg-gray-900 min-h-screen px-4 md:px-8 lg:px-12 lg:py-4 xl:px-16 xl:py-6 rounded-lg">
+      <div className="container bg-gray-900 min-h-screen px-4 md:px-8 lg:px-12 lg:py-4 xl:px-16 xl:py-6 sm:rounded-lg">
         <div className="flex flex-wrap py-6">
           <div className="w-full sm:w-1/3  text-gray-600 my-3">
             <span>ADD CURRENCIES</span>
