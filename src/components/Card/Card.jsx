@@ -118,11 +118,30 @@ const Card = (props) => {
   // if input is clicked, all is selected
   const inputRef = useRef()
 
-  function clickHandler(e) {
+  function inputClickHandler(e) {
     e.preventDefault()
 
     inputRef.current.selectionStart = 0
     inputRef.current.selectionEnd = inputRef.current.value.length
+  }
+
+  // click on card moves it to the top. unless it was clicked on the delete svg
+  function clickCardHandler(e) {
+    if (isEqual(e.target, deleteSvg.current)) {
+      return
+    }
+
+    setTimeout(() => {
+      let addedCurrencies = [...appState.addedCurrencies]
+      addedCurrencies.splice(props.id, 1)
+      addedCurrencies.unshift(appState.addedCurrencies[props.id])
+
+      appDispatch({ type: 'updateOrder', value: addedCurrencies })
+
+      if (addedCurrencies.length === 0) {
+        appDispatch({ type: 'clearLocalStorage' })
+      }
+    }, 200)
   }
 
   function deleteHandler() {
@@ -152,6 +171,8 @@ const Card = (props) => {
   const nodeRef = React.createRef()
   // for bg
   const bgRef = useRef()
+  // for clickHandler to prevent jump to top if clicked delete
+  const deleteSvg = useRef()
 
   function Amount() {
     return <span className="float-right align-bottom leading-10 font-bold text-xl ">{isNaN(state.amount) ? '-' : state.amount}</span>
@@ -163,13 +184,13 @@ const Card = (props) => {
       {(provided, snapshot) => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`mb-4 lg:mb-6 ${snapshot.isDragging ? 'shadow-lg' : ''}`}>
           <CSSTransition nodeRef={nodeRef} in={state.display} timeout={200} classNames={transition} unmountOnExit>
-            <div ref={nodeRef} className={`h-24 overflow-hidden rounded-lg  text-gray-200 relative `}>
+            <div ref={nodeRef} className={`h-24 overflow-hidden rounded-lg  text-gray-200 relative `} onClick={clickCardHandler}>
               <div className=" w-full h-24 absolute bg-cover bg-no-repeat bg-center" ref={bgRef} style={{ backgroundImage: `url(${state.imageUrl})` }}>
                 <div className={`p-4 h-24 ${styles.gradient}`}>
                   <div className="font-bold text-xl pb-2 w-2/4 inline">{props.currency.value}</div>
                   <div className="inline float-right ">
                     <div onClick={deleteHandler} className={`w-3 h-3 cursor-pointer ${styles.tooltip}`}>
-                      <svg className={`w-3 h-3 fill-current `} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496.096 496.096">
+                      <svg ref={deleteSvg} className={`w-3 h-3 fill-current `} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496.096 496.096">
                         <path d="M259.41 247.998L493.754 13.654a8 8 0 000-11.312 8 8 0 00-11.312 0L248.098 236.686 13.754 2.342A8 8 0 002.442 13.654l234.344 234.344L2.442 482.342a8 8 0 00-.196 11.312 8 8 0 0011.508 0L248.098 259.31l234.344 234.344a8 8 0 0011.312-.196 8 8 0 000-11.116L259.41 247.998z" />
                       </svg>
                       {/* <span className={`-mt-12 -ml-20 bg-grey-600 p-1 rounded ${styles['tooltip-text']}`}>Remove Me!</span> */}
@@ -183,7 +204,7 @@ const Card = (props) => {
                       ref={inputRef}
                       type="text"
                       inputMode="numeric"
-                      onClick={clickHandler}
+                      onClick={inputClickHandler}
                       onChange={(e) => inputHandler(e)}
                       onKeyUp={enterHandler}
                       value={state.amount}
