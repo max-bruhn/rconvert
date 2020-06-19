@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useImmerReducer } from 'use-immer'
 import Axios from 'axios'
 
@@ -19,8 +19,6 @@ function App() {
     baseAmount: 1,
     rates: {},
     lastUpdate: 0,
-    timeUntilUpdate: 0,
-    updateInterval: 60000,
     loadedAmountFromStorage: false,
     isFetching: false,
   }
@@ -31,7 +29,7 @@ function App() {
         for (let i = 0; i < data.length; i++) {
           if (data[i].value === action.value) {
             draft.addedCurrencies.push(data[i])
-            console.log(data[i])
+
             break
           }
         }
@@ -71,7 +69,7 @@ function App() {
         draft.loadedAmountFromStorage = action.value
         return
       default:
-        return console.log('default')
+        return
     }
   }
 
@@ -93,12 +91,43 @@ function App() {
       dispatch({ type: 'updateBaseAmount', value })
       dispatch({ type: 'loadedAmountFromStorage', value: true })
     }
-  }, [])
+  }, [dispatch])
+
+  // updates rates
+  const getLatestRates = useCallback(
+    async (base) => {
+      dispatch({ type: 'isFetching', value: true })
+      // call this function with state.addedCurrencies[0].value
+
+      if (state.addedCurrencies && state.addedCurrencies.length) {
+        const ourRequest = Axios.CancelToken.source()
+
+        let response = await Axios.get(`https://api.exchangeratesapi.io/latest?base=${base}`, { cancelToken: ourRequest.token }).catch((error) => {
+          return console.error('an error occurred fetching latest rates.')
+        })
+        dispatch({ type: 'isFetching', value: false })
+
+        if (response && response.data && response.data.rates) {
+          dispatch({
+            type: 'updateRates',
+            value: response.data.rates,
+          })
+        } else {
+          // call again if got no rates
+          setTimeout(() => {
+            getLatestRates(state.addedCurrencies[0].value)
+          }, 5000)
+        }
+
+        return () => ourRequest.cancel()
+      }
+    },
+    [state.addedCurrencies, dispatch]
+  )
 
   // updates localStorage
   useEffect(() => {
     if (state.addedCurrencies && state.addedCurrencies.length) {
-      console.log(state.baseAmount)
       localStorage.setItem('addedCurrencies', JSON.stringify(state.addedCurrencies))
       localStorage.setItem('baseAmount', state.baseAmount)
     }
@@ -108,7 +137,7 @@ function App() {
     if (state.addedCurrencies && state.addedCurrencies.length && Date.now() - state.lastUpdate >= state.updateInterval) {
       getLatestRates(state.addedCurrencies[0].value)
     }
-  }, [state.addedCurrencies])
+  }, [state.addedCurrencies, getLatestRates, state.lastUpdate, state.updateInterval])
 
   // make api call and update base curr if first item in addedCurr array has been changed
   useEffect(() => {
@@ -116,45 +145,7 @@ function App() {
       dispatch({ type: 'updateBaseCurr', value: state.addedCurrencies[0].value })
       getLatestRates(state.addedCurrencies[0].value)
     }
-  }, [state.addedCurrencies])
-
-  // updates rates
-  async function getLatestRates(base) {
-    dispatch({ type: 'isFetching', value: true })
-    // call this function with state.addedCurrencies[0].value
-    if (state.addedCurrencies && state.addedCurrencies.length) {
-      const ourRequest = Axios.CancelToken.source()
-
-      let response = await Axios.get(`https://api.exchangeratesapi.io/latest?base=${base}`, { cancelToken: ourRequest.token }).catch((error) => {
-        return console.error('an error occurred fetching latest rates.')
-      })
-      dispatch({ type: 'isFetching', value: false })
-      if (response && response.data && response.data.rates) {
-        console.log(response.data.rates)
-        dispatch({
-          type: 'updateRates',
-          value: response.data.rates,
-        })
-      } else {
-        // call again if got no rates
-        setTimeout(() => {
-          getLatestRates(state.addedCurrencies[0].value)
-        }, 5000)
-      }
-
-      return () => ourRequest.cancel()
-    }
-  }
-
-  useEffect(() => {
-    // if lastUpdate was updated (successful rates update) then check every state.updateInterval ms if lastUpdate was state.updateInterval ms ago, if it was, update
-    const interval = setInterval(() => {
-      if (state.addedCurrencies && state.addedCurrencies.length && Date.now() - state.lastUpdate >= state.updateInterval) {
-        getLatestRates(state.addedCurrencies[0].value)
-      }
-    }, state.updateInterval)
-    return () => clearInterval(interval)
-  }, [state.lastUpdate])
+  }, [state.addedCurrencies, dispatch, getLatestRates, state.baseCurr])
 
   return (
     <>
