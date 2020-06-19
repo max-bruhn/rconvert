@@ -52,7 +52,7 @@ const Search = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [handleClickOutside])
+  })
 
   //
   function handleClickOutside(e) {

@@ -79,25 +79,25 @@ const Card = (props) => {
     }
 
     // get amount from appState if it's freshly loaded from storage
-    if (props.id == 0 && appState.loadedAmountFromStorage) {
+    if (props.id === 0 && appState.loadedAmountFromStorage) {
       setState((draft) => {
         draft.amount = appState.baseAmount
       })
       appDispatch({ type: 'loadedAmountFromStorage', value: false })
     }
-  }, [appState.baseAmount, appState.rates])
+  })
 
   // update base currency if this card was dragged to the top
   useEffect(() => {
-    if (props.id == 0 && !appState.loadedAmountFromStorage) {
+    if (props.id === 0 && !appState.loadedAmountFromStorage) {
       appDispatch({ type: 'updateBaseAmount', value: state.amount })
     }
-  }, [appState.addedCurrencies])
+  })
 
   function inputHandler(e) {
     e.preventDefault()
 
-    if (props.id != 0) {
+    if (props.id !== 0) {
       return
     }
 
@@ -143,8 +143,7 @@ const Card = (props) => {
   }
 
   function enterHandler(e) {
-    console.log('enter')
-    if (e.key == 'Enter') {
+    if (e.key === 'Enter') {
       e.target.blur()
     }
   }
@@ -178,7 +177,7 @@ const Card = (props) => {
                   </div>
                   <div className="w-full"></div>
                   <span className="float-left align-bottom leading-10 w-6/12">{props.currency.label}</span>
-                  {props.id == 0 ? (
+                  {props.id === 0 ? (
                     <input
                       key={props.currency.value}
                       ref={inputRef}
