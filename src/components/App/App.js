@@ -28,7 +28,8 @@ function App() {
       case 'addCurrency':
         for (let i = 0; i < data.length; i++) {
           if (data[i].value === action.value) {
-            draft.addedCurrencies.push(data[i])
+            // draft.addedCurrencies.push(data[i])
+            draft.addedCurrencies.splice(1, 0, data[i])
 
             break
           }
