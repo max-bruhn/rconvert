@@ -9,6 +9,7 @@ import data from '../../data/data.json'
 
 import styles from './Card.module.scss'
 import transition from './transition.module.scss'
+import Flag from '../Flag/Flag'
 
 const Card = (props) => {
   const appState = useContext(StateContext)
@@ -187,13 +188,15 @@ const Card = (props) => {
             <div ref={nodeRef} className={`h-24 overflow-hidden rounded-lg  text-gray-200 relative `} onClick={clickCardHandler}>
               <div className=" w-full h-24 absolute bg-cover bg-no-repeat bg-center" ref={bgRef} style={{ backgroundImage: `url(${state.imageUrl})` }}>
                 <div className={`p-4 h-24 ${styles.gradient}`}>
-                  <div className="font-bold text-xl pb-2 w-2/4 inline">{props.currency.value}</div>
+                  <div className="font-bold text-xl pb-2 w-2/4 inline">
+                    <Flag value={props.currency.value} />
+                    {props.currency.value}
+                  </div>
                   <div className="inline float-right ">
                     <div onClick={deleteHandler} className={`w-3 h-3 cursor-pointer ${styles.tooltip}`}>
                       <svg ref={deleteSvg} className={`w-3 h-3 fill-current `} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496.096 496.096">
                         <path d="M259.41 247.998L493.754 13.654a8 8 0 000-11.312 8 8 0 00-11.312 0L248.098 236.686 13.754 2.342A8 8 0 002.442 13.654l234.344 234.344L2.442 482.342a8 8 0 00-.196 11.312 8 8 0 0011.508 0L248.098 259.31l234.344 234.344a8 8 0 0011.312-.196 8 8 0 000-11.116L259.41 247.998z" />
                       </svg>
-                      {/* <span className={`-mt-12 -ml-20 bg-grey-600 p-1 rounded ${styles['tooltip-text']}`}>Remove Me!</span> */}
                     </div>
                   </div>
                   <div className="w-full"></div>

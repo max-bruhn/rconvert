@@ -42,7 +42,7 @@ const Content = () => {
 
           <div className="w-full sm:w-1/3 text-gray-600 my-8">
             <span className="text-base inline-block">CURRENCIES</span> <br />
-            <span className="text-sm pt-3 pr-5 inline-block">Drag a currency to the top to make it the base currency.</span>
+            <span className="text-sm pt-3 pr-5 inline-block">Drag a currency to the top or click on it, to make it the base currency.</span>
           </div>
           <div className="w-full sm:w-2/3   sm:my-8">
             <DragDropContext onDragEnd={onDragEnd}>
