@@ -6,11 +6,9 @@ import StateContext from '../../StateContext'
 import DispatchContext from '../../DispatchContext'
 
 import './App.css'
-import Header from '../Header/Header'
-import Content from '../Content/Content'
+
 import data from '../../data/data.json'
-import Scroll from '../Scroll/Scroll'
-import Footer from '../Footer/Footer'
+import Container from '../Container/Container'
 
 function App() {
   const initialState = {
@@ -152,12 +150,7 @@ function App() {
     <>
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
-          <div className="container  mx-auto lg:px-4 xl:px-32">
-            <Header />
-            <Content />
-            <Scroll />
-            <Footer />
-          </div>
+          <Container />
         </DispatchContext.Provider>
       </StateContext.Provider>
     </>
