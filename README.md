@@ -4,8 +4,8 @@ A live demo of this project runs at [rconvert.netlify.app](https://rconvert.netl
 
 ## Some Technologies Used
 
-⋅⋅* React
-⋅⋅* Tailwindcss
-⋅⋅* Sass
-⋅⋅* React Beautiful DND
-⋅⋅\* Axios
+- React
+- Tailwindcss
+- Sass
+- React Beautiful DND
+- Axios
