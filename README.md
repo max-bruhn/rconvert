@@ -1,7 +1,5 @@
 # R·CONVERT
 
-#### Currency Conversion
-
 A live demo of this project runs at [rconvert.netlify.app](https://rconvert.netlify.app).
 
 The App pulls data from an API managed by the European Central Bank.
