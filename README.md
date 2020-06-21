@@ -1,4 +1,6 @@
-# A Currency Conversion App
+# R·CONVERT
+
+#### Currency Conversion
 
 A live demo of this project runs at [rconvert.netlify.app](https://rconvert.netlify.app).
 
